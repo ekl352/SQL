@@ -1,23 +1,23 @@
 --Create a clothing store database
 
-CREATE TABLE clothing_store (id INTEGER PRIMARY KEY, name TEXT, aisle INTEGER, amount INTEGER, price INTEGER);
+CREATE TABLE clothing_store (id INTEGER PRIMARY KEY, name TEXT, group TEXT, quantity INTEGER, price INTEGER);
 
 INSERT INTO clothing_store VALUES
-(1, 1, "Skirt", 5, 20),
-(2, 2, "Shirt", 7, 15),
-(3, 3, "Jeans", 16, 35),
-(4, 4, "Dress", 22, 30),
-(5, 5, "Shoes", 31, 30),
-(6, 6, "shortskirt", 22, 25),
-(7, 7, "crop top", 15, 15),
-(8, 8, "chacos", 32, 80)
-(9, 9, "melanzana hoodie", 50, 50),
-(10, 10, "melanzana skirt", 25, 40),
-(11, 11, "beanie", 100, 25),
-(12, 12, "Sweater", 25, 25),
-(13, 13, "Leggings", 25, 25),
-(14, 14, "Socks", 100, 10),
-(15, 15, "gloves", 25, 10);
+(1, "Long skirt", "Bottoms", 5, 20),
+(2, "T-Shirt", "Tops", 7, 15),
+(3, "Jeans", "Bottoms", 16, 35),
+(4, "A-line Dress", "Dress", 22, 30),
+(5, "Chelsea Boots", "Shoes", 31, 30),
+(6, "Mini-Skirt", "Bottoms", 22, 25),
+(7, "Crop top", "Tops", 15, 15),
+(8, "Chacos", "Shoes", 32, 80)
+(9, "Melanzana hoodie", "Tops", 50, 50),
+(10, "Melanzana skirt", "Bottoms", 25, 40),
+(11, "Tiered Dress", "Dress", 100, 25),
+(12, "Sweatshirt", "Tops", 25, 25),
+(13, "Leggings", "Bottoms", 25, 25),
+(14, "Dress pants", "Bottoms", 100, 10),
+(15, "Fitted Shirt", "Tops", 25, 10);
 
 --display the database ordered by price
 SELECT * FROM clothing_store ORDER BY price;
