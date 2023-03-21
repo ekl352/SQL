@@ -1,0 +1,51 @@
+/* Create table about the people and what they do here */
+
+Create Table Famous_people (
+    id Integer Primary Key,
+    name Text,
+    age INTEGER);
+    
+Insert INTO Famous_people (name, age) Values("Florence Pugh", 27);
+Insert into Famous_people(name, age)  Values("Daniel Craig", 55);
+Insert into Famous_people (name, age) Values("Taylor Swift", 32);
+Insert into Famous_people (name, age) Values("Harry Styles", 29);
+Insert into Famous_people (name, age) Values("Jodi Picoult", 56);
+Insert into Famous_people (name, age) Values("Stephen King", 75);
+Insert into Famous_people (name, age) Values("Kim Kardashian", 42);
+Insert into Famous_people (name, age) Values("Miley Cyrus", 30);
+Insert into Famous_people (name, age) Values("Colson Whitehead", 53);
+Insert into Famous_people (name, age) Values("Rick Grimes", 59);
+Insert into Famous_people (name, age) Values("Renee Rap", 23);
+Insert into Famous_people (name, age) Values("Liam Neeson", 70);
+Insert into Famous_people (name, age) Values("Michael Keaton", 71);
+Insert into Famous_people (name) Values("Marilyn Monroe");
+Insert into Famous_people (name, age) Values("Emma Stone", 34);
+Insert into Famous_people (name, age) Values("Zendaya", 26);
+
+Create Table Job(
+    id INTEGER PRIMARY KEY,
+    job TEXT,
+    famous_id INTEGER
+    );
+
+INSERT INTO Job (job, famous_id) Values("Actor", 1);
+INSERT INTO Job (job, famous_id) Values( "Actor", 2);
+INSERT INTO Job (job, famous_id) Values( "Singer", 3);
+INSERT INTO Job (job, famous_id) Values( "Singer", 4);
+INSERT INTO Job (job, famous_id) Values( "Author", 5);
+INSERT INTO Job (job, famous_id) Values( "Author", 6);
+INSERT INTO Job (famous_id) Values( 7);
+INSERT INTO Job (job, famous_id) Values( "Singer", 8);
+INSERT INTO Job (job, famous_id) Values( "Author",9);
+INSERT INTO Job (job, famous_id) Values("Zombie Killer",10);
+INSERT INTO Job (job, famous_id) Values("Singer, Actress",11);
+INSERT INTO Job (job, famous_id) Values("Actor", 12);
+INSERT INTO Job (job, famous_id) Values("Actor", 13);
+INSERT INTO Job (job, famous_id) Values("Actor", 14);
+INSERT INTO Job (job, famous_id) Values("Actor", 15);
+INSERT INTO Job (job, famous_id) Values("Actor", 16);
+
+
+Select Famous_people.name, J.job From Famous_people
+    Left Outer Join Job J
+    On Famous_people.id = J.famous_id;
