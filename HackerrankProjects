@@ -1,0 +1,14 @@
+--Below are Hackerrank Projects that I started working on June 26 2023 to practice SQL
+
+--1. Query all columns for all American cities in the CITY table with populations larger than 100000. The CountryCode for America is USA.
+Select * From City Where Population > 100000 And Countrycode = 'USA';
+
+--2. Query the NAME field for all American cities in the CITY table with populations larger than 120000. The CountryCode for America is USA.
+Select Name From City Where Countrycode = 'USA' and Population > 120000;
+
+--3. Query a list of CITY names from STATION for cities that have an even ID number. Print the results in any order, but exclude duplicates from the answer. 
+The STATION table is described as follows:
+
+Select distinct City From Station Where mod(Id,2) = 0;
+--The way to find an even number simply is to find the remainder when you divide a column number by 2. It will equal 0 if it is an even number, 
+--Otherwise it is an odd number. 
