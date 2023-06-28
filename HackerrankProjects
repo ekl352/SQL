@@ -12,3 +12,35 @@ The STATION table is described as follows:
 Select distinct City From Station Where mod(Id,2) = 0;
 --The way to find an even number simply is to find the remainder when you divide a column number by 2. It will equal 0 if it is an even number, 
 --Otherwise it is an odd number. 
+
+--4. Query the two cities in Station with the shortest and longest city names, as well as their respective lengths (i.e. number of char in name)
+
+select City, length(City) from Station order by length(City), City limit 1; 
+select City, length(City) from Station order by length(City) desc, City limit 1; 
+
+--5. Query the list of City names starting with vowels (i.e. a, e, i, o, u) from Station. Your result cannot contain duplicates
+
+Select distinct City From Station Where lower(substr(City,1,1))in('a','e','i','o','u');
+--notes: The SUBSTR() function extracts a substring from a string (starting at any position). and Lower() converts the text to lowercase
+
+--6. Query the list of City Names ending with vowels (a,e,i,o,u) from Station.
+Select distinct City From Station Where City Like '%a'
+Or City Like '%e'
+Or City Like '%i'
+Or City Like '%o'
+Or City Like '%u'
+;
+
+--7. Query the list of City names from Station which have vowels (a,e,i,o,u) as both their first and last characters. Your result cannot contain duplicates
+
+Select distinct City From Station Where lower(Left(city,1)) IN ('a','e','i','o','u')
+And lower(Right(city,1)) IN ('a','e','i','o','u');
+
+The Left() and Right() functions pick the leftmost character, and the rightmost character. 
+
+--8. Query the list of City names from Station that do not start with vowels. 
+
+Select distinct City From Station Where NOT lower(Left(city,1)) IN ('a','e','i','o','u');
+
+--9. Query the list of City Names from station that either do not start with vowels or do not end with vowels. 
+
