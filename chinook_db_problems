@@ -1,0 +1,19 @@
+--Below are practice problems utilizing the chinook database found on Charlotte Chaze's
+--Data Analytics course. The dataset, chinook, represents a digital media store and 
+--includes these tables: artists, albums, media tracks, invoices, and customers.
+
+//1. Show Customers (their full names, customer ID, and country) who are not in the US. 
+
+  Select FirstName, LastName, CustomerId, Country From chinook.customers Where Country <> 'USA';
+
+//2. Show only the customers from Brazil
+
+  Select FirstName, LastName, CustomerId, Country From chinook.customers Where Country = 'Brazil';
+
+//3. Find the Invoices of customers who are from Brazil. The resulting table should
+//show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+
+Select cust.FirstName, cust.LastName, inv.InvoiceId, inv.InvoiceDate, inv.BillingCountry
+From chinook.customers cust
+Left Join chinook.invoices inv
+On cust.CustomerId = inv.CustomerId;
