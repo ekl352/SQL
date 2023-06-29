@@ -43,4 +43,14 @@ The Left() and Right() functions pick the leftmost character, and the rightmost 
 Select distinct City From Station Where NOT lower(Left(city,1)) IN ('a','e','i','o','u');
 
 --9. Query the list of City Names from station that either do not start with vowels or do not end with vowels. 
+Select distinct City From Station Where NOT lower(Left(city,1)) IN ('a','e','i','o','u') 
+Or NOT lower(Right(city,1)) IN ('a','e','i','o','u');
 
+--10. Query the list of City Names from Station that do not start with vowels and do not end with vowels. 
+Select distinct City From Station Where NOT lower(Left(city,1)) IN ('a','e','i','o','u') 
+And NOT lower(Right(city,1)) IN ('a','e','i','o','u');
+
+--11. Query the name of any student in Students who scored higher than 75 marks. Order your
+--output by the last three characters of each name. If 2 or more students both have names ending in the same last 3 characters
+--secondary sort them by ascending id. This one is interesting because it does two sorts!
+Select Name From Students Where Marks > 75 Order By Right(Name,3), id ASC; 
