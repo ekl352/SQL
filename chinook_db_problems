@@ -75,11 +75,12 @@ Where InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
   On i.TrackId = t.TrackId
   Order By InvoiceLineId;
 
-START HERE
+START HERE- need to run 11 & 12 in sqllite
 
 //11.Write a query that includes the purchased track name AND artist name with each invoice line ID.
 
-Select i.InvoiceLineId, t.Name as 'Purchased Track Name', ar.Name as 'Artist Name' From ((chinook.invoice_items i
+Select i.InvoiceLineId, t.Name as 'Purchased Track Name', ar.Name as 'Artist Name' 
+From ((chinook.invoice_items i
   Left Join chinook.tracks t
   On i.TrackId = t.TrackId)
   Left Join chinook.albums a
