@@ -4,7 +4,8 @@
 
 //1. Show Customers (their full names, customer ID, and country) who are not in the US. 
 
-  Select FirstName, LastName, CustomerId, Country From chinook.customers Where Country <> 'USA';
+  Select FirstName, LastName, CustomerId, Country 
+  From chinook.customers Where Country <> 'USA';
 
 //2. Show only the customers from Brazil
 
@@ -14,9 +15,10 @@
 //show the customer's full name, Invoice ID, Date of the invoice, and billing country.
 
 Select cust.FirstName, cust.LastName, inv.InvoiceId, inv.InvoiceDate, inv.BillingCountry
-From chinook.customers cust
-Left Join chinook.invoices inv
-On cust.CustomerId = inv.CustomerId;
+From chinook.invoices inv
+Left Join chinook.customers cust
+On inv.CustomerId = cust.CustomerId
+Where inv.BillingCountry = "Brazil";
 
 //4. Show the employees who are sales agents
 
@@ -39,6 +41,8 @@ Select Distinct BillingCountry From chinook.invoices;
 //we're doing a join of employees and customers, then outside of the parentheses we
 //Join on invoices. 
 
+
+START HERE
 //7. Show the Invoice Total, Customer name, Country, and Sales Agent name for all
 //invoices and customers.
 
