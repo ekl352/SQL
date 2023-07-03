@@ -58,6 +58,67 @@ Select Sum(Total) From chinook.invoices
 Where InvoiceDate Like '2009%';
 
 //10. Write a query that includes the purchased track name with each invoice line ID.
+Select i.InvoiceLineId, t.Name From chinook.invoice_items i
+  Left Join chinook.tracks t
+  On i.TrackId = t.TrackId
+  Order By InvoiceLineId;
+
+//11.Write a query that includes the purchased track name AND artist name with each invoice line ID.
+
+Select i.InvoiceLineId, t.Name as 'Purchased Track Name', ar.Name as 'Artist Name' From ((chinook.invoice_items i
+  Left Join chinook.tracks t
+  On i.TrackId = t.TrackId)
+  Left Join chinook.albums a
+  On a.AlbumId = t.AlbumId)
+  Join chinook.artists ar 
+  On ar.ArtistId = a.ArtistId
+  Order By i.InvoiceLineId;
+
+//12. Provide a query that shows all the Tracks, and include the
+//Album name, Media type, and Genre.
+
+Select t.Name as 'Track Name', a.Title as 'Album Name', m.Name as 'Media Type',
+ g.Name as 'Genre'
+ From ((chinook.tracks t 
+ Left Join chinook.albums a
+ On t.AlbumId = a.AlbumId)
+ Left Join chinook.media_types m 
+ On m.MediaTypeId = t.MediaTypeId)
+ Left Join chinook.genres g 
+ On g.GenreId = t.GenreId
+ Order By t.Name;  
+
+//13. Show the total sales made by each sales agent.
+Select distinct e.FirstName as 'Sales Agent First', e.LastName, Sum(i.Total) OVER (PARTITION BY e.LastName) as 'Total Sales'
+ From (chinook.employees e
+ Join chinook.customers c
+ On e.EmployeeId = c.SupportRepId)
+ Join chinook.invoices i
+ On c.CustomerId = i.CustomerId;
+
+//14. Which sales agent made the most dollars in sales in 2009?
+
+Select distinct e.FirstName as 'Sales Agent First', e.LastName, Sum(i.Total) OVER (PARTITION BY e.LastName) as "Total_Sales"
+ From (chinook.employees e
+ Join chinook.customers c
+ On e.EmployeeId = c.SupportRepId)
+ Join chinook.invoices i
+ On c.CustomerId = i.CustomerId
+ Where i.InvoiceDate Like '2009%'
+ Order By Total_Sales desc Limit 1;
+
+//15. How many years of Sales Data is in this database?
+Select distinct strftime('%Y', InvoiceDate) as 'Year' From chinook.invoices;
+ 
+//16. Which year had the highest sales? 
+Select distinct strftime('%Y', InvoiceDate) as "Year", sum(Total) OVER (PARTITION BY strftime('%Y', InvoiceDate)) as "Yearly_Sales" From chinook.invoices
+Order By Yearly_Sales desc Limit 1; 
+
+//17. Which Genre had the highest sales?
+
+//18. Which artist sold the most albums? 
+//19. Which country had the largest amount of customers? 
+//20. Which country had the lowest amount of customers? 
 
 
 
