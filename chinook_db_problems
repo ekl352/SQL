@@ -192,7 +192,17 @@ Order By Total_Sales DESC Limit 1;
 
 //19. Which country had the largest amount of customers? 
 
+Select count(CustomerId), Country From chinook.customers
+Group By Country
+Order By count(CustomerId) desc Limit 1;
+
 //20. Which country had the lowest amount of customers? 
+
+Select count(CustomerId), Country From chinook.customers
+Group By Country
+Order By count(CustomerId) asc Limit 15;
+
+//15 countries all only had 1 customer. 
 
 
 
