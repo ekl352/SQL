@@ -75,16 +75,14 @@ Where InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
   On i.TrackId = t.TrackId
   Order By InvoiceLineId;
 
-START HERE
-
 //11.Write a query that includes the purchased track name AND artist name with each invoice line ID.
 
 Select i.InvoiceLineId, t.Name as 'Purchased Track Name', ar.Name as 'Artist Name' From ((chinook.invoice_items i
   Left Join chinook.tracks t
   On i.TrackId = t.TrackId)
-  Left Join chinook.albums a
+  Inner Join chinook.albums a
   On a.AlbumId = t.AlbumId)
-  Join chinook.artists ar 
+  Left Join chinook.artists ar 
   On ar.ArtistId = a.ArtistId
   Order By i.InvoiceLineId;
 
@@ -110,6 +108,21 @@ Select distinct e.FirstName as 'Sales Agent First', e.LastName, Sum(i.Total) OVE
  Join chinook.invoices i
  On c.CustomerId = i.CustomerId;
 
+Or, below option doesn't use window functions, so you can use round()...
+
+SELECT emp.FirstName, emp.LastName,
+ROUND(SUM(Inv.Total), 2) as 'Total Sales' 
+FROM chinook.Employees emp
+
+JOIN chinook.Customers cust 
+ON cust.SupportRepId = emp.EmployeeId
+
+JOIN chinook.Invoices Inv 
+ON Inv.CustomerId = cust.CustomerId
+
+WHERE emp.Title = 'Sales Support Agent' 
+GROUP BY empFirstName;
+
 //14. Which sales agent made the most dollars in sales in 2009?
 
 Select distinct e.FirstName as 'Sales Agent First', e.LastName, Sum(i.Total) OVER (PARTITION BY e.LastName) as "Total_Sales"
@@ -121,6 +134,20 @@ Select distinct e.FirstName as 'Sales Agent First', e.LastName, Sum(i.Total) OVE
  Where i.InvoiceDate Like '2009%'
  Order By Total_Sales desc Limit 1;
 
+OR
+
+Select e.FirstName, e.LastName,
+ROUND(SUM(i.Total), 2) as 'Total Sales'
+From Chinook.Employees e
+Join chinook.customers c
+On c.SupportRepId = e.EmployeeId
+Join chinook.invoices i
+On i.CustomerId = c.CustomerId
+Where e.Title = 'Sales Support Agent'
+And i.InvoiceDate Like '2009%'
+Group By e.FirstName
+Order By (round(sum(i.Total), 2)) DESC Limit 1; 
+
 //15. How many years of Sales Data is in this database?
 Select distinct strftime('%Y', InvoiceDate) as 'Year' From chinook.invoices;
  
@@ -129,9 +156,42 @@ Select distinct strftime('%Y', InvoiceDate) as "Year", sum(Total) OVER (PARTITIO
 Order By Yearly_Sales desc Limit 1; 
 
 //17. Which Genre had the highest sales?
+Select distinct g.Name as 'Genre', ROUND(SUM(Inv.Total), 2) as "Total_Sales"
+From chinook.genres g
 
-//18. Which artist sold the most albums? 
+Left Join chinook.tracks t
+On t.GenreId = g.GenreId
+
+Join chinook.invoice_items i
+On i.TrackId = t.TrackId
+
+Join chinook.invoices inv
+On inv.InvoiceId = i.InvoiceId
+
+GROUP BY g.name
+Order By Total_Sales Desc Limit 1; 
+
+//18. Which artist sold the most tracks? 
+Select distinct a.Name as 'Artist', ROUND(SUM(Inv.Total), 2) as "Total_Sales"
+From chinook.artists a
+
+Left Join chinook.albums alb
+On alb.ArtistId = a.ArtistId
+
+Left Join chinook.tracks t
+On t.AlbumId = alb.AlbumId
+
+Join chinook.invoice_items i
+On i.TrackId = t.TrackId
+
+Join chinook.invoices inv
+On inv.InvoiceId = i.InvoiceId
+
+GROUP BY a.name
+Order By Total_Sales DESC Limit 1;
+
 //19. Which country had the largest amount of customers? 
+
 //20. Which country had the lowest amount of customers? 
 
 
